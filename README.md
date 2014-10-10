@@ -23,7 +23,7 @@ Or install it yourself as:
 
 With the gem installed, instantiate a new class in your controller:
 
-```
+```ruby
 class WelcomeController < ApplicationController
 
 
