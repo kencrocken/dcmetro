@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+API_KEY="n2z9aq3redes6k7jekjfzk8q"   #"kfgpmgvfgacx98de9q3xazww"  #developer's key
+
+# Color Reset
+COLOR_OFF="\033[0m"       # Text Reset
+
+# Line Colors
+RED="\033[0;31m"          # Red
+GREEN="\033[0;32m"        # Green
+ORANGE="\033[38;5;208m"   # Orange
+SILVER="\033[0;90m"       # IBlack
+YELLOW="\033[0;93m"       # IYellow
+BLUE="\033[0;94m"         # IBlue
+
+require 'dcmetro'
+# require_relative "dcmetro/cli/application"
+
+DCMetro::Cli::Application.start(ARGV)
