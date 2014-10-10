@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-API_KEY="n2z9aq3redes6k7jekjfzk8q"   #"kfgpmgvfgacx98de9q3xazww"  #developer's key
+API_KEY="kfgpmgvfgacx98de9q3xazww"  #developer's key
 
 # Color Reset
 COLOR_OFF="\033[0m"       # Text Reset
