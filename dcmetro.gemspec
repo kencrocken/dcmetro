@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ken Crocken"]
   spec.email         = ["kcrocken@gmail.com"]
   spec.summary       = %q{Returns DC Metro information, including train schedules.}
-  # spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.description   = %q{Returns DC Metro information, including train schedules.}
+  spec.homepage      = "https://github.com/kencrocken/dcmetro"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
