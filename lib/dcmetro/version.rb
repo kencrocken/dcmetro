@@ -9,3 +9,5 @@ end
 # Fixes a bug if multiple stations are returned
 #
 # Requires the use of an env variable for the API key
+#
+# Requires rest-client
