@@ -2,18 +2,32 @@ require 'thor'
 require 'json'
 require 'rest_client'
 
+#
+# This is the command line interface using Thor
+
 module DCMetro
   module Cli
     class Application < Thor
 
       desc 'alerts', 'Display DC Metro system wide alerts.'
       def alerts
+        #
+        # $dcmetro alerts
+        # => *** Alert! Alert! ***
+
         x = DCMetro::Information.new
         display_alerts x.alerts
       end
 
       desc 'line COLOR', 'Display metro rail lines, if COLOR, displays rail stations on the COLOR line'
       def line color=nil
+        #
+        # $dcmetro line
+        # => Orange, Blue, Silver, Red, etc ...
+        #
+        # $dcmetro line Red
+        # => Displays the stations on the Red Line
+
         x = DCMetro::Information.new
 
         if !color.nil?
@@ -26,6 +40,14 @@ module DCMetro
       desc 'station NAME', 'Display metro station train arrival and departure times.'
       method_option :alerts, :aliases => '-a', :type => :boolean,  :description => "Display Metro wide alerts."
       def station(name)
+        #
+        # $dcmetro station Greenbelt
+        # => Displays the departure and arrival times at the Greenbelt Station
+        #
+        # $dcmetro station Greenbelt -a
+        # => Displays the alerts, departure and arrival times at the Greenbelt Station
+        #
+
         x = DCMetro::Information.new
 
         if options[:alerts]
@@ -37,7 +59,6 @@ module DCMetro
         train_time = x['Trains'].empty? ? "Sorry, there is no information for #{name}." : display_trains(x['Trains'])
         puts train_time if !train_time.kind_of?(Array)
         train_time
-
       end
 
       private
@@ -45,6 +66,9 @@ module DCMetro
       no_commands do
 
         def display_alerts alerts
+          #
+          # Formats the display of the alerts
+          
           if alerts['Incidents'].empty?
             puts "*** No alerts reported. ***"
           else 
@@ -54,6 +78,9 @@ module DCMetro
         end
 
         def display_trains trains
+          #
+          # Formats the display of the train arrival and departures
+
           puts  "===== #{trains[0]['LocationName']} ====="
           trains.each do |prediction|
             puts "Line: #{prediction['Line']} | Towards: #{prediction['DestinationName']} | Arriving: #{prediction['Min']}"

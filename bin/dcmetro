@@ -1,7 +1,16 @@
 #!/usr/bin/env ruby
 
-API_KEY="kfgpmgvfgacx98de9q3xazww"  #developer's key
+# You need to set an ENV variable in the shell which will be the Api Key.
+# It is free from WMATA, https://developer.wmata.com/
+# Referenced below was the old generic key used for testing the API on WMATA's site.
+# Since api keys are free I would suggest registering for one, the rate limit is
+# 10 calls/second, 50,000 calls/day which is pretty good.  The generic key below had
+# significant limits
+#
+#
+API_KEY=ENV['DCMETRO_KEY'] #generic developer's key "kfgpmgvfgacx98de9q3xazww"
 
+# The below colors are for experimenting with providing color
 # Color Reset
 COLOR_OFF="\033[0m"       # Text Reset
 
@@ -14,6 +23,5 @@ YELLOW="\033[0;93m"       # IYellow
 BLUE="\033[0;94m"         # IBlue
 
 require 'dcmetro'
-# require_relative "dcmetro/cli/application"
 
 DCMetro::Cli::Application.start(ARGV)
