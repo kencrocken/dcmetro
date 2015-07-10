@@ -69,7 +69,6 @@ module DCMetro
         puts "****Multiple stations found****"
         stations_check.each do |station|
           puts station['Name']
-          puts station
         end
         abort "****Please be more specific****"
       else

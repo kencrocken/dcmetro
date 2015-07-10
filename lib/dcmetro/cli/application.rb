@@ -37,6 +37,11 @@ module DCMetro
         end
       end
 
+      desc "lines", "invokes line method"
+      def lines color=nil
+        invoke :line
+      end
+
       desc 'station NAME', 'Display metro station train arrival and departure times.'
       method_option :alerts, :aliases => '-a', :type => :boolean,  :description => "Display Metro wide alerts."
       def station(name)
