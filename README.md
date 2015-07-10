@@ -1,5 +1,6 @@
 # DCMetro 
 [![Gem Version](https://badge.fury.io/rb/dcmetro.svg)](http://badge.fury.io/rb/dcmetro)
+[![Build Status](https://travis-ci.org/kencrocken/dcmetro.svg?branch=master)](https://travis-ci.org/kencrocken/dcmetro)
 [![Coverage Status](https://coveralls.io/repos/kencrocken/dcmetro/badge.svg?branch=master&service=github)](https://coveralls.io/github/kencrocken/dcmetro?branch=master)
 
 Rails class and a command line interface to access the Washington, D.C. Metro Rail API.  Returns the systemwide alerts, lines, stations and arrival times for the lines at each station.
