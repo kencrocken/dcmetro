@@ -1,6 +1,6 @@
 require 'thor'
 require 'json'
-require 'rest_client'
+require 'rest-client'
 
 #
 # This is the command line interface using Thor

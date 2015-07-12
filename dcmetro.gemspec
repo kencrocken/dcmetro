@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Dcmetro::VERSION
   spec.authors       = ["Ken Crocken"]
   spec.email         = ["kcrocken@gmail.com"]
-  spec.summary       = %q{Returns DC Metro information, including train schedules.}
-  spec.description   = %q{Returns DC Metro information, including train schedules.}
+  spec.summary       = %q{Returns DC Metro Rails information, including train schedules.}
+  spec.description   = %q{Washington, DC Metro Rails information, including lines, stations and arrival/departure predictions.}
   spec.homepage      = "https://github.com/kencrocken/dcmetro"
   spec.license       = "MIT"
 
