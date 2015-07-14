@@ -36,7 +36,9 @@ module DCMetro
           line = parse_json x.line(color)
           line["Stations"].each { |station| puts station['Name']}
         else
+          puts x.line["Lines"]
           lines = parse_json x.line
+          puts lines["Lines"]
           lines["Lines"].each { |line| puts line["DisplayName"] }
         end
       end
@@ -60,11 +62,11 @@ module DCMetro
         x = DCMetro::Information.new
 
         if options[:alerts]
-          y = x.alerts
+          y = parse_json x.alerts
           display_alerts y
         end
 
-        x = x.station(name)
+        x = parse_json x.station(name)
         train_time = x['Trains'].empty? ? "Sorry, there is no information for #{name}." : display_trains(x['Trains'])
         puts train_time if !train_time.kind_of?(Array)
         train_time

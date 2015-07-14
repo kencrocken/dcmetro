@@ -48,6 +48,8 @@ module DCMetro
 
         # @metro_lines = metro_lines
         # @metro_lines['Lines']
+
+        # @metro_lines = get_all_stations
       end
     end ### line
 
@@ -60,12 +62,8 @@ module DCMetro
       stations_check = []
 
       # forming the api call
-      metro_stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
-        "api_key" => API_KEY,
-        "subscription-key" => API_KEY
-        }
 
-      @metro_stations = parse_json metro_stations
+      @metro_stations = JSON.parse(get_all_stations)
 
       # Iterates through the response checking if the station name passed by the user
       # is included in the return response
@@ -100,10 +98,11 @@ module DCMetro
 
     private 
 
-    #
-    # Parse the JSON
-    def parse_json(response)
-      JSON.parse(response)
+    def get_all_stations
+      return RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
+        "api_key" => API_KEY,
+        "subscription-key" => API_KEY
+      }
     end
 
     #
@@ -123,10 +122,10 @@ module DCMetro
       end
 
       # The call to the api is made and the prediction times are returned
-      @metro_time = JSON.parse(RestClient.get "#{BASE_URL}/StationPrediction.svc/json/GetPrediction/#{@station_code}", :params => {
+      @metro_time = RestClient.get "#{BASE_URL}/StationPrediction.svc/json/GetPrediction/#{@station_code}", :params => {
         "api_key" => API_KEY,
         "subscription-key" => API_KEY
-        })  
+        }
       @metro_time
     end
 

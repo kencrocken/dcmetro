@@ -2,7 +2,7 @@
 Feature: External calls to WMATA api
 
     When I call WMATA api 
-    Then the response should be 200
+    Then the response should be "200"
     And should return "JSON"
     And should contain "the desired information"
 
@@ -24,3 +24,11 @@ Feature: External calls to WMATA api
         Then the response should be "200"
         And should return "JSON"
         And should contain "Stations"
+
+    Scenario: Check Stations arrival/departure times
+        When I send a GET request for "WMATA Station Gallery"
+        Then the response should be "200"
+        And should return "JSON"
+        And should contain "Line"
+        And should contain "DestinationName"
+        And should contain "Min"

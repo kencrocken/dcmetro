@@ -6,6 +6,8 @@ When(/^I send a GET request for "([^"]*)"$/) do |path|
         @last_response = X.line
     when "WMATA Lines Red"
         @last_response = X.line "Red"
+    when "WMATA Station Gallery"
+        @last_response = X.station "Gallery"
     else 
         false
     end
