@@ -22,7 +22,7 @@ module DCMetro
           "api_key" => API_KEY,
           "subscription-key" => API_KEY
       }
-      
+
     end ### alerts
 
     def line(color=nil)
@@ -32,22 +32,22 @@ module DCMetro
 
       if !color.nil?
         color = color.downcase
-        metro_stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
+        @metro_stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
         "LineCode" => color,
         "api_key" => API_KEY,
         "subscription-key" => API_KEY
         }
 
-        @metro_stations = parse_json metro_stations
-        @metro_stations['Stations']
+        # @metro_stations = parse_json metro_stations
+        # @metro_stations['Stations']
       else
-        metro_lines = RestClient.get "#{BASE_URL}/Rail.svc/json/JLines", :params => {
+        @metro_lines = RestClient.get "#{BASE_URL}/Rail.svc/json/JLines", :params => {
         "api_key" => API_KEY,
         "subscription-key" => API_KEY
         }
 
-        @metro_lines = parse_json metro_lines
-        @metro_lines['Lines']
+        # @metro_lines = metro_lines
+        # @metro_lines['Lines']
       end
     end ### line
 

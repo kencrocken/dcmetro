@@ -16,7 +16,7 @@ module DCMetro
         # => *** Alert! Alert! ***
 
         x = DCMetro::Information.new
-        
+
         alerts = parse_json x.alerts
         display_alerts alerts
       end
@@ -33,9 +33,11 @@ module DCMetro
         x = DCMetro::Information.new
 
         if !color.nil?
-          x.line(color).each { |station| puts station['Name']}
+          line = parse_json x.line(color)
+          line["Stations"].each { |station| puts station['Name']}
         else
-          x.line.each { |line| puts line["DisplayName"]}
+          lines = parse_json x.line
+          lines["Lines"].each { |line| puts line["DisplayName"] }
         end
       end
 
