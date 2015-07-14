@@ -16,7 +16,9 @@ module DCMetro
         # => *** Alert! Alert! ***
 
         x = DCMetro::Information.new
-        display_alerts x.alerts
+        
+        alerts = parse_json x.alerts
+        display_alerts alerts
       end
 
       desc 'line COLOR', 'Display metro rail lines, if COLOR, displays rail stations on the COLOR line'
@@ -69,6 +71,10 @@ module DCMetro
       private
 
       no_commands do
+
+        def parse_json(response)
+          JSON.parse(response)
+        end
 
         def display_alerts alerts
           #

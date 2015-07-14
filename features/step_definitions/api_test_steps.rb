@@ -1,10 +1,11 @@
 When(/^I send a GET request for "([^"]*)"$/) do |path|
     case path
     when "WMATA Alerts"
-        @last_response = RestClient.get "#{BASE_URL}/Incidents.svc/json/Incidents", :params => {
-            "api_key" => DCMETRO_KEY,
-            "subscription-key" => DCMETRO_KEY
-        }
+        # @last_response = RestClient.get "#{BASE_URL}/Incidents.svc/json/Incidents", :params => {
+        #     "api_key" => DCMETRO_KEY,
+        #     "subscription-key" => DCMETRO_KEY
+        # }
+        @last_response = X.alerts
     when "WMATA Lines"
         @last_response = RestClient.get "#{BASE_URL}/Rail.svc/json/JLines", :params => {
             "api_key" => DCMETRO_KEY,
@@ -30,6 +31,5 @@ Then(/^should return "([^"]*)"$/) do |arg1|
 end
 
 Then(/^should contain "([^"]*)"$/) do |arg1|
-    @JSON_response = JSON.parse(@last_response)
-    @JSON_response[arg1]
+    @last_response[arg1]
 end

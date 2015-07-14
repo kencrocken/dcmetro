@@ -5,9 +5,11 @@ module DCMetro
   class Information
     attr_accessor :metro_incidents, :metro_lines, :metro_stations, :station_code, :metro_time
 
+    BASE_URL="https://api.wmata.com"
+
     def initialize
-      @metro_incidents = JSON.parse(RestClient.get "http://api.wmata.com/Incidents.svc/json/Incidents?api_key=#{API_KEY}&subscription-key=#{API_KEY}")
-      @metro_lines = JSON.parse(RestClient.get "http://api.wmata.com/Rail.svc/json/JLines?api_key=#{API_KEY}&subscription-key=#{API_KEY}")
+      @metro_incidents = metro_incidents
+      @metro_lines = metro_lines
       @metro_stations = metro_stations
       @station_code = ""
       @metro_time = metro_time
@@ -16,8 +18,11 @@ module DCMetro
     def alerts
       #
       # Makes the api call and returns the alerts
-
-      @metro_incidents
+      @metro_incidents = RestClient.get "#{BASE_URL}/Incidents.svc/json/Incidents", :params => {
+          "api_key" => API_KEY,
+          "subscription-key" => API_KEY
+      }
+      
     end ### alerts
 
     def line(color=nil)
@@ -27,9 +32,21 @@ module DCMetro
 
       if !color.nil?
         color = color.downcase
-        @metro_stations = JSON.parse(RestClient.get "http://api.wmata.com/Rail.svc/json/jStations?LineCode=#{color}&api_key=#{API_KEY}&subscription-key=#{API_KEY}")
+        metro_stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
+        "LineCode" => color,
+        "api_key" => API_KEY,
+        "subscription-key" => API_KEY
+        }
+
+        @metro_stations = parse_json metro_stations
         @metro_stations['Stations']
       else
+        metro_lines = RestClient.get "#{BASE_URL}/Rail.svc/json/JLines", :params => {
+        "api_key" => API_KEY,
+        "subscription-key" => API_KEY
+        }
+
+        @metro_lines = parse_json metro_lines
         @metro_lines['Lines']
       end
     end ### line
@@ -43,8 +60,12 @@ module DCMetro
       stations_check = []
 
       # forming the api call
-      url = "https://api.wmata.com/Rail.svc/json/jStations?api_key=#{API_KEY}&subscription-key=#{API_KEY}"
-      @metro_stations = JSON.parse(RestClient.get "#{url}")
+      metro_stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
+        "api_key" => API_KEY,
+        "subscription-key" => API_KEY
+        }
+
+      @metro_stations = parse_json metro_stations
 
       # Iterates through the response checking if the station name passed by the user
       # is included in the return response
@@ -80,6 +101,12 @@ module DCMetro
     private 
 
     #
+    # Parse the JSON
+    def parse_json(response)
+      JSON.parse(response)
+    end
+
+    #
     # This makes an api call to grab the train arrival and departure predictions.
     # If more than one line is present at a station, such is concatenated and 
     # the call is made on all lines.
@@ -96,8 +123,10 @@ module DCMetro
       end
 
       # The call to the api is made and the prediction times are returned
-      url = "http://api.wmata.com/StationPrediction.svc/json/GetPrediction/#{@station_code}?api_key=#{API_KEY}&subscription-key=#{API_KEY}"
-      @metro_time = JSON.parse(RestClient.get "#{url}")  
+      @metro_time = JSON.parse(RestClient.get "#{BASE_URL}/StationPrediction.svc/json/GetPrediction/#{@station_code}", :params => {
+        "api_key" => API_KEY,
+        "subscription-key" => API_KEY
+        })  
       @metro_time
     end
 
