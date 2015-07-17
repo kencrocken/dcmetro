@@ -1,4 +1,3 @@
-@wip
 Feature: check dcmetro station predictions
 
     In order to station predictions
@@ -14,5 +13,6 @@ Feature: check dcmetro station predictions
         Then the stdout should contain "===== Gallery Pl-Chinatown ====="
 
     Scenario: check predictions returning more than one station
-        When I run `dcmetro station g`
-        Then the stdout should contain "****Multiple stations found****"
+        When I run `dcmetro station g` interactively
+        And I type "4"
+        Then the stdout should contain "===== Gallery Pl-Chinatown ====="

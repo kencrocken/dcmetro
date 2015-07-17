@@ -3,7 +3,7 @@ require_relative 'dcmetro/cli/application'
 
 module DCMetro
   class Information
-    attr_accessor :metro_incidents, :metro_lines, :metro_stations, :station_code, :metro_time
+    attr_accessor :metro_incidents, :metro_lines, :metro_stations, :station_code, :metro_time, :travel_info
 
     BASE_URL="https://api.wmata.com"
 
@@ -13,6 +13,7 @@ module DCMetro
       @metro_stations = metro_stations
       @station_code = ""
       @metro_time = metro_time
+      @travel_info = travel_info
     end
 
     def alerts
@@ -53,7 +54,7 @@ module DCMetro
       end
     end ### line
 
-    def station(name)
+    def station(source,destination=nil)
       #
       # Makes the api call to return all stations in the Metro rail system and
       # then grabs the specific station passed by the user
@@ -65,34 +66,73 @@ module DCMetro
 
       @metro_stations = JSON.parse(get_all_stations)
 
-      # Iterates through the response checking if the station name passed by the user
-      # is included in the return response
-      @metro_stations['Stations'].each do |station_name|
-        if station_name['Name'].downcase.include? name.downcase
+      if destination.nil?
+        # Iterates through the response checking if the station name passed by the user
+        # is included in the return response
+        @metro_stations['Stations'].each do |station_name|
+          if station_name['Name'].downcase.include? source.downcase
 
-          # if the names of the station matches the user's station, the station
-          # is pushed to an array
-          stations_check.push(station_name)
+            # if the names of the station matches the user's station, the station
+            # is pushed to an array
+            stations_check.push(station_name)
+          end
         end
-      end
 
-      # Oddly, the api seems to return some stations twice - since some stations have more than
-      # one line.  Though the additional station information is contained in each instance of the 
-      # station. 
-      # We limit our array to only unique station names, hopefully limiting the array to a single item
-      stations_check.uniq! { |station| station['Name'] }
+        # Oddly, the api seems to return some stations twice - since some stations have more than
+        # one line.  Though the additional station information is contained in each instance of the 
+        # station. 
+        # We limit our array to only unique station names, hopefully limiting the array to a single item
+        stations_check.uniq! { |station| station['Name'] }
 
-      # If the array length is greater than 1, we ask the user to be more specific and 
-      # return the names of the stations
-      if stations_check.length > 1
-        puts "****Multiple stations found****"
-        stations_check.each do |station|
-          puts station['Name']
+        # If the array length is greater than 1, we ask the user to be more specific and 
+        # return the names of the stations
+        if stations_check.length > 1
+          puts "****Multiple stations found****"
+          stations_check.each_with_index do |station,i|
+            puts  "#{i} #{station['Name']}"
+          end
+          puts "****Please be more specific, enter the number below ****"
+          specific = STDIN.gets.chomp.to_i
+          station_time stations_check[specific]
+        else
+          # We pass the station the station_time method to grab the predictions
+          station_time stations_check[0]
         end
-        abort "****Please be more specific****"
       else
-        # We pass the station the station_time method to grab the predictions
-        station_time stations_check[0]
+        stations = [source, destination]
+        station_code = []
+        stations.each do |station|
+          @metro_stations['Stations'].each do |station_name|
+            if station_name['Name'].downcase.include? station.downcase
+              station_code << station_name
+            end
+          end
+        end
+        station_code.uniq! { |station| station['Name'] }
+        if station_code.length > 2
+          puts "****Multiple stations found****"
+          station_code.each_with_index do |station,i|
+            puts  "#{i} #{station['Name']}"
+          end
+          puts "****Please be more specific****"
+          puts "Enter the number of your starting station."
+          start = STDIN.gets.chomp.to_i
+          puts "Enter the number of your destination station."
+          destination = STDIN.gets.chomp.to_i
+          @travel_info = RestClient.get "#{BASE_URL}/Rail.svc/json/jSrcStationToDstStationInfo", :params => {
+            "FromStationCode" => station_code[start]['Code'],
+            "ToStationCode" => station_code[destination]['Code'],
+            "api_key" => API_KEY,
+            "subscription-key" => API_KEY
+          }
+        else
+          @travel_info = RestClient.get "#{BASE_URL}/Rail.svc/json/jSrcStationToDstStationInfo", :params => {
+            "FromStationCode" => station_code[0]['Code'],
+            "ToStationCode" => station_code[1]['Code'],
+            "api_key" => API_KEY,
+            "subscription-key" => API_KEY
+          }
+        end
       end
     end ### station
 

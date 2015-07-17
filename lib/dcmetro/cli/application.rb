@@ -36,10 +36,12 @@ module DCMetro
           line = parse_json x.line(color)
           line["Stations"].each { |station| puts station['Name']}
         else
-          puts x.line["Lines"]
           lines = parse_json x.line
-          puts lines["Lines"]
-          lines["Lines"].each { |line| puts line["DisplayName"] }
+          lines["Lines"].each do |line|
+            color = get_color(line['LineCode'])
+
+            puts "#{color}#{line['DisplayName']}#{COLOR_OFF}"
+          end
         end
       end
 
@@ -50,7 +52,7 @@ module DCMetro
 
       desc 'station NAME', 'Display metro station train arrival and departure times.'
       method_option :alerts, :aliases => '-a', :type => :boolean,  :description => "Display Metro wide alerts."
-      def station(name)
+      def station(from, to=nil)
         #
         # $dcmetro station Greenbelt
         # => Displays the departure and arrival times at the Greenbelt Station
@@ -66,17 +68,41 @@ module DCMetro
           display_alerts y
         end
 
-        x = parse_json x.station(name)
-        train_time = x['Trains'].empty? ? "Sorry, there is no information for #{name}." : display_trains(x['Trains'])
-        puts train_time if !train_time.kind_of?(Array)
-        train_time
+        if to.nil?
+          x = parse_json x.station(from)
+          train_time = x['Trains'].empty? ? "Sorry, there is no information for #{from}." : display_trains(x['Trains'])
+          puts train_time if !train_time.kind_of?(Array)
+          train_time
+        else
+          x = x.station(from,to)
+          y = parse_json x
+          display_travel_info y
+
+        end
       end
 
       private
 
       no_commands do
 
-        def parse_json(response)
+        def get_color line_code
+          case line_code
+            when "GR"
+              GREEN
+            when "BL"
+              BLUE
+            when "OR"
+              ORANGE
+            when "SV"
+              SILVER
+            when "YL"
+              YELLOW
+            else
+              RED
+          end
+        end
+        
+        def parse_json response
           JSON.parse(response)
         end
 
@@ -100,6 +126,14 @@ module DCMetro
           trains.each do |prediction|
             puts "Line: #{prediction['Line']} | Towards: #{prediction['DestinationName']} | Arriving: #{prediction['Min']}"
           end
+        end
+
+        def display_travel_info information
+          information = information['StationToStationInfos'][0]
+          railFare = information['RailFare']
+          puts "Distance: #{information['CompositeMiles']} Miles\n"
+          puts "Estimate Travel Time: #{information['RailTime']} Minutes\n"
+          puts "\n*** Fare Information ***\nOff Peak Time:  $#{railFare['OffPeakTime']}\nPeak Time:  $#{railFare['PeakTime']}\nSenior/Disabled:  $#{railFare['SeniorDisabled']}"
         end
 
       end
