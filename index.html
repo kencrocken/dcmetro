@@ -1,1 +1,54 @@
-My Page
+---
+layout: default
+---
+<div class="col-xs-12 landing-icon">
+  <i class="fa fa-train landing-icon-train"></i>
+</div>
+<div class="row featurette">
+  <div class="col-md-7">
+    <h2 class="featurette-heading">CLI. <span class="text-muted">WMATA in the terminal.</span></h2>
+    <p class="lead">Get system wide Rail alerts and arrival and departure times without leaving the console.</p>
+  </div>
+  <div class="col-md-5">
+    <div class="center-block">
+      {% capture myInclude %}{% include cli.markdown %}{% endcapture %}
+      {{ myInclude | markdownify }}
+    </div>
+  </div>
+</div>
+<hr class="featurette-divider">
+<div class="row featurette">
+  <div class="col-md-7 col-md-push-5">
+    <h2 class="featurette-heading">Rails. <span class="text-muted">Easily include WMATA Rail information.</span></h2>
+    <p class="lead">Simplify navigating the WMATA API, merely instantiate a new class and call the methods.</p>
+    <p class="lead">See a live example app, with more details <a href="https://fathomless-reef-6180.herokuapp.com/" target="_blank">here</a></p>
+  </div>
+  <div class="col-md-5 col-md-pull-7">
+    <div class="center-block">
+      {% capture myInclude %}{% include rails.markdown %}{% endcapture %}
+      {{ myInclude | markdownify }}
+    </div>
+  </div>
+</div>
+<hr class="featurette-divider">
+<div class="row featurette">
+  <div class="col-md-7">
+    <h2 class="featurette-heading">Fork the repo. <span class="text-muted">Install the gem.</span></h2>
+    <p class="lead">Get system wide Rail alerts and arrival and departure times without leaving the console.</p>
+    <p class="lead"><code>gem install dcmetro</code></p>
+  </div>
+  <div class="col-md-5">
+    <div class="center-block">
+      <a href="http://badge.fury.io/rb/dcmetro"><img src="https://badge.fury.io/rb/dcmetro.svg" alt="Gem Version" height="18"></a>
+      <img src="https://travis-ci.org/kencrocken/dcmetro.svg?branch=master" alt="build" height="18">
+      <a href='https://coveralls.io/github/kencrocken/dcmetro?branch=master'><img src='https://coveralls.io/repos/kencrocken/dcmetro/badge.svg?branch=master&service=github' alt='Coverage Status' /></a>
+      <br>
+      <br>
+      <p> Fork the repo <a href="https://github.com/kencrocken/dcmetro" target="_blank"><i class="fa fa-github"></i></a></p>
+      <p>Visit the Ruby Gems Page <a href="https://rubygems.org/gems/dcmetro" target="_blank"><i class="fa fa-diamond"></i></a></p>
+    </div>
+  </div>
+</div>
+
+
+</div>

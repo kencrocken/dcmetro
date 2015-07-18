@@ -1,0 +1,39 @@
+header {
+    background-color: cornflowerblue;
+    color: white;
+    .jumbotron {
+        padding-left: 0 !important;
+        background-color: transparent;
+    }
+}
+
+.landing-icon {
+    position: relative;
+    text-align: center;
+    margin-bottom: 55px;
+    &-train {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
+        margin: 15px 0;
+        padding: 10px;
+        font-size: 30px;
+        border: 3px solid white;
+        border-radius: 50%;
+        background-color: cornflowerblue;
+        color: white;
+    }
+}
+
+footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    background-color: lighten(cornflowerblue, 10%);
+    .umbrella {
+        text-align: center;
+        color: lighten(cornflowerblue, 20%);
+    }
+}
