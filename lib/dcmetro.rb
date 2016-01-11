@@ -33,6 +33,22 @@ module DCMetro
 
       if !color.nil?
         color = color.downcase
+
+        case color
+        when "red"
+          color = "RD"
+        when "green"
+          color = "GR"
+        when "yellow"
+          color = "YL"
+        when "blue"
+          color = "BL"
+        when "orange"
+          color = "OR"
+        else
+          color = "SV"
+        end
+        
         @metro_stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
         "LineCode" => color,
         "api_key" => API_KEY,
@@ -63,7 +79,6 @@ module DCMetro
       stations_check = []
 
       # forming the api call
-
       @metro_stations = JSON.parse(get_all_stations)
 
       if destination.nil?
@@ -71,13 +86,11 @@ module DCMetro
         # is included in the return response
         @metro_stations['Stations'].each do |station_name|
           if station_name['Name'].downcase.include? source.downcase
-
             # if the names of the station matches the user's station, the station
             # is pushed to an array
             stations_check.push(station_name)
           end
         end
-
         # Oddly, the api seems to return some stations twice - since some stations have more than
         # one line.  Though the additional station information is contained in each instance of the 
         # station. 

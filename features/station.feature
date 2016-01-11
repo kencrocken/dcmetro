@@ -14,5 +14,5 @@ Feature: check dcmetro station predictions
 
     Scenario: check predictions returning more than one station
         When I run `dcmetro station g` interactively
-        And I type "4"
+        And I type "5"
         Then the stdout should contain "===== Gallery Pl-Chinatown ====="
