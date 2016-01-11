@@ -43,13 +43,14 @@ class WelcomeController < ApplicationController
 
   def index
     x = DCMetro::Information.new
-    @alerts = x.alerts['Incidents']
-    @lines = x.line
-    @stations = x.line "green"
-    @college_park = x.station "college"
-    @rosslyn = x.station "ross"
-    @fort_totten = x.station "fort"
-    @metro_center = x.station "metro"
+    @alerts = JSON.parse x.alerts
+    @lines = JSON.parse x.line
+    @stations = JSON.parse x.line "green"
+    @college_park = JSON.parse x.station "college"
+    @gallery_place = JSON.parse x.station "gallery"
+    #
+    # New in 0.0.3 - kind of a work in prorgress
+    @fare_info = JSON.parse x.station "college", "gallery"
   end
 
 end
