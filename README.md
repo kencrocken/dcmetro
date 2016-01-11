@@ -63,7 +63,7 @@ Commands:
   dcmetro alerts          # Display DC Metro system wide alerts.
   dcmetro help [COMMAND]  # Describe available commands or one specific command
   dcmetro line COLOR      # Display metro rail lines, if COLOR, displays rail stations on the COLOR line
-  dcmetro station NAME    # Display metro station train arrival and departure times.
+  dcmetro station STARTING,DEST    # Display metro station train arrival and departure times and travel info.
   ```
   
 ### CHANGELOG
@@ -73,7 +73,15 @@ Commands:
 2. Fixes a bug if multiple stations are returned
 3. Requires the use of an env variable for the API key
 4. Requires rest-client
+##### Changes in 0.0.3
 
+1. Adds station to station travel information
+2. Expanded test coverage
+3. Refactors code so that the Information Class merely returns information
+   Any parsing is now done in the CLI application
+
+# Bug: If no stations are returned app pukes
+# Bug: Pentagon and Pentagon City confuses app
 
 ## Contributing
 
