@@ -75,7 +75,6 @@ Commands:
 3. Requires the use of an env variable for the API key
 4. Requires rest-client
 ##### Changes in 0.0.3
-
 1. Adds station to station travel information
 2. Expanded test coverage
 3. Refactors code so that the Information Class merely returns information
