@@ -81,9 +81,6 @@ Commands:
 3. Refactors code so that the Information Class merely returns information
    Any parsing is now done in the CLI application
 
-# Bug: If no stations are returned app pukes
-# Bug: Pentagon and Pentagon City confuses app
-
 ## Contributing
 
 1. Fork it ( https://github.com/kencrocken/dcmetro/fork )
