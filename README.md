@@ -74,6 +74,7 @@ Commands:
 2. Fixes a bug if multiple stations are returned
 3. Requires the use of an env variable for the API key
 4. Requires rest-client  
+
 ##### Changes in 0.0.3
 1. Adds station to station travel information
 2. Expanded test coverage
