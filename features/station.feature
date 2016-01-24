@@ -20,7 +20,7 @@ Feature: check dcmetro station predictions
         """
         Then the stdout should contain: 
         """
-        gall
+        Gallery
         """
 
     Scenario: check predictions returning more than one station
@@ -32,5 +32,5 @@ Feature: check dcmetro station predictions
         """
         Then the stdout should contain:
         """
-        g
+        Gallery
         """
