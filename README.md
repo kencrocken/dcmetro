@@ -65,7 +65,7 @@ Commands:
   dcmetro line COLOR      # Display metro rail lines, if COLOR, displays rail stations on the COLOR line
   dcmetro station STARTING,DEST    # Display metro station train arrival and departure times and travel info.
   ```
-  
+
 ### CHANGELOG
 
 ##### Changes in 0.0.3
@@ -83,8 +83,16 @@ Commands:
 
 ## Contributing
 
-1. Fork it ( https://github.com/kencrocken/dcmetro/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
+1. Fork it - [https://github.com/kencrocken/dcmetro/fork](https://github.com/kencrocken/dcmetro/fork)
+2. Create your feature branch `git checkout -b my-new-feature`
+3. Commit your changes `git commit -am 'Add some feature'`
+4. Push to the branch `git push origin my-new-feature`
 5. Create a new Pull Request
+
+
+###Development
+
+`$ cd ~/path/to/dcmetro` 
+`bundle install` to get dependencies.
+`bundle exec bin/dcmetro`
+`cucumber features` to run tests.

@@ -8,7 +8,7 @@ Feature: check dcmetro station predictions
         When I run `dcmetro station gallery`
         Then the stdout should contain:
         """"
-        gallery
+        Gallery
         """
 
     Scenario: check predictions from partial name
