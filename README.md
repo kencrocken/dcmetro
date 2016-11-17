@@ -55,6 +55,8 @@ class WelcomeController < ApplicationController
 end
 ```
 
+For more info, see this [sample rails app](https://fathomless-reef-6180.herokuapp.com/).
+
 ###CLI
 
 ```
