@@ -2,11 +2,12 @@
 class WelcomeController < ApplicationController
 
     def index
-        x = DCMetro::Information.new
-        @alerts = x.alerts['Incidents']
-        @lines = x.line
-        @stations = x.line "green"
-        @college_park = x.station "college park"
+        dc_metro = DCMetro::Information.new
+        @alerts = dc_metro.alerts['Incidents']
+        @lines = dc_metro.line
+        @stations = dc_metro.line "green"
+        @college_park = dc_metro.station "college park"
+    end
 {% endhighlight %}
 
 {% highlight haml %}
