@@ -1,8 +1,8 @@
-require 'dcmetro'
-require "aruba/api"
+require 'simplecov'
 require 'coveralls'
 Coveralls.wear!
-
+require "aruba/api"
+require 'dcmetro'
 # require 'simplecov'
 # SimpleCov.start
 

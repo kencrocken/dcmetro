@@ -1,10 +1,11 @@
+require 'simplecov'
 require 'coveralls'
 Coveralls.wear!
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 
-require 'codecov'
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
+# require 'codecov'
+# SimpleCov.formatter = SimpleCov::Formatter::Codecov
 require 'aruba/cucumber'
 require 'json'
 require 'rest-client'
