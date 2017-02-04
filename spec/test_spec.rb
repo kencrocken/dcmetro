@@ -23,4 +23,12 @@ describe DCMetro::Cli do
         end
     end
 
+    describe "#dcmetro station gallery -a" do
+        it "should echo predictions for Gallery Place" do
+            echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['station','gallery','-a']) }
+            expect(echo_task).to include "***"
+            expect(echo_task).to include "Gallery"
+        end
+    end
+
 end
