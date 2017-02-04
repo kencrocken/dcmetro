@@ -1,15 +1,15 @@
 When(/^I send a GET request for "([^"]*)"$/) do |path|
     case path
     when "WMATA Alerts"
-        @last_response = X.alerts
+        @last_response = DCMETRO.alerts
     when "WMATA Lines"
-        @last_response = X.line
+        @last_response = DCMETRO.line
     when "WMATA Lines Red"
-        @last_response = X.line "Red"
+        @last_response = DCMETRO.line "Red"
     when "WMATA Station Gallery"
-        @last_response = X.station "Gallery"
+        @last_response = DCMETRO.station "Gallery"
     when "WMATA Station Gallery College" 
-        @last_response = X.station "Gallery", "College"
+        @last_response = DCMETRO.station "Gallery", "College"
     else 
         @last_response = false
     end
