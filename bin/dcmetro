@@ -23,5 +23,7 @@ YELLOW="\033[0;93m"       # IYellow
 BLUE="\033[0;94m"         # IBlue
 
 require 'dcmetro'
+# require 'dcmetro/runner'
 
+# DCMetro::Runner.new(ARGV.dup).execute!
 DCMetro::Cli::Application.start(ARGV)

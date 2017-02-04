@@ -1,18 +1,26 @@
 Feature: check dcmetro station predictions
-
     In order to station predictions
-    When I run `bundle exec dcmetro station STATION`
+    When I run `dcmetro station STATION`
     Then train predictions for STATION should be displayed
     
+
+    Background:
+        Given an executable named "bin/dcmetro" with:
+        """bash
+        #!/usr/bin/env ruby
+        require 'dcmetro'
+        DCMetro::Cli::Application.start(ARGV)
+        """
+        
     Scenario: check gallery predictions
-        When I run `bundle exec dcmetro station gallery`
+        When I run `dcmetro station gallery`
         Then the stdout should contain:
         """"
         Gallery
         """
 
     Scenario: check predictions from partial name
-        When I run `bundle exec dcmetro station gall` interactively
+        When I run `dcmetro station gall` interactively
         And I type "0"
         Then the stdout should contain: 
         """
@@ -24,7 +32,7 @@ Feature: check dcmetro station predictions
         """
 
     Scenario: check predictions returning more than one station
-        When I run `bundle exec dcmetro station g` interactively
+        When I run `dcmetro station g` interactively
         And I type "5"
         Then the stdout should contain:
         """
