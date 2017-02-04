@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+require 'dcmetro'
 # You need to set an ENV variable in the shell which will be the Api Key.
 # It is free from WMATA, https://developer.wmata.com/
 # Referenced below was the old generic key used for testing the API on WMATA's site.
@@ -22,6 +22,6 @@ SILVER="\033[0;90m"       # IBlack
 YELLOW="\033[0;93m"       # IYellow
 BLUE="\033[0;94m"         # IBlue
 
-require 'dcmetro'
+
 
 DCMetro::Cli::Application.start(ARGV)

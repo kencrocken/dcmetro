@@ -1,6 +1,5 @@
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::Codecov,
-  Coveralls::SimpleCov::Formatter
-]
+require 'codecov'
+
+SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
 
 SimpleCov.start
