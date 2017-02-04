@@ -27,5 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "aruba"
   spec.add_development_dependency "coveralls"
   spec.add_development_dependency "rspec"
-  
+  spec.add_development_dependency "codecov"
+  spec.add_development_dependency "simplecov"
+
 end
