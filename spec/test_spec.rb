@@ -45,4 +45,14 @@ describe DCMetro::Cli do
         end
     end
 
+    describe "#dcmetro lines red" do
+        it "should echo metro stations on the red line" do
+            echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['lines', 'red']) }
+            expect(echo_task).to include "Metro Center"
+            expect(echo_task).to include "Farragut North"
+            expect(echo_task).to include "Dupont Circle"
+
+        end
+    end
+
 end
