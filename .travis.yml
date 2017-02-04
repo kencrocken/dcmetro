@@ -4,7 +4,7 @@ cache: bundler
 rvm:
   - 2.2.0
 
-script: 'bundle exec rake features'
+script: 'bundle exec rake tests'
 
 notifications:
   email:

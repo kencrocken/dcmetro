@@ -12,7 +12,6 @@ BASE_URL="http://api.wmata.com"
 
 DCMETRO = DCMetro::Information.new
 
-
 Before ("@check ") do
     def valid_json?(json)
         begin

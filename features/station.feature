@@ -3,15 +3,6 @@ Feature: check dcmetro station predictions
     When I run `dcmetro station STATION`
     Then train predictions for STATION should be displayed
     
-
-    Background:
-        Given an executable named "bin/dcmetro" with:
-        """bash
-        #!/usr/bin/env ruby
-        require 'dcmetro'
-        DCMetro::Cli::Application.start(ARGV)
-        """
-        
     Scenario: check gallery predictions
         When I run `dcmetro station gallery`
         Then the stdout should contain:

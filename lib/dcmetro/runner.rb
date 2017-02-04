@@ -1,6 +1,6 @@
 require 'dcmetro'
 
-module MyCli
+module DCMetro
   class Runner
     # Allow everything fun to be injected from the outside while defaulting to normal implementations.
     def initialize(argv, stdin = STDIN, stdout = STDOUT, stderr = STDERR, kernel = Kernel)
@@ -15,7 +15,7 @@ module MyCli
         $stdout = @stdout
 
         # Run our normal Thor app the way we know and love.
-        MyCli::App.start(@argv)
+        DCMetro::Cli::Application.start(ARGV)
 
         # Thor::Base#start does not have a return value, assume success if no exception is raised.
         0

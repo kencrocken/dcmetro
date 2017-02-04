@@ -4,14 +4,6 @@ Feature: check dcmetro lines
     When I run `bundle exec dcmetro lines`
     Then metro lines should be displayed
 
-    Background:
-        Given an executable named "bin/dcmetro" with:
-        """bash
-        #!/usr/bin/env ruby
-        require 'dcmetro'
-        DCMetro::Cli::Application.start(ARGV)
-        """
-
     # check line - singular
     Scenario: check lines
         When I run `dcmetro line`
