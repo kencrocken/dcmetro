@@ -16,21 +16,6 @@ describe DCMetro::Cli do
         end
     end
 
-    describe "#dcmetro station gallery" do
-        it "should echo predictions for Gallery Place" do
-            echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['station','gallery']) }
-            expect(echo_task).to include "Gallery"
-        end
-    end
-
-    describe "#dcmetro station gallery -a" do
-        it "should echo predictions for Gallery Place with alerts" do
-            echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['station','gallery','-a']) }
-            expect(echo_task).to include "***"
-            expect(echo_task).to include "Gallery"
-        end
-    end
-
     describe "#dcmetro lines" do
         it "should echo metro lines" do
             echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['lines']) }
@@ -55,4 +40,31 @@ describe DCMetro::Cli do
         end
     end
 
+
+    describe "#dcmetro station gallery" do
+        it "should echo predictions for Gallery Place" do
+            echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['station','gallery']) }
+            expect(echo_task).to include "Gallery"
+        end
+    end
+
+    describe "#dcmetro station gallery -a" do
+        it "should echo predictions for Gallery Place with alerts" do
+            echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['station','gallery','-a']) }
+            expect(echo_task).to include "***"
+            expect(echo_task).to include "Gallery"
+        end
+    end
+
+    describe "#dcmetro station college gallery" do
+        it "should echo fare information from college park to gallery place" do
+            echo_task = capture(:stdout) { DCMetro::Cli::Application.start(['station','college','gallery']) }
+            expect(echo_task).to include "Distance"
+            expect(echo_task).to include "Travel Time"
+            expect(echo_task).to include "*** Fare Information ***"
+            expect(echo_task).to include "Off Peak Time"
+            expect(echo_task).to include "Peak Time"
+            expect(echo_task).to include "Senior/Disabled"
+        end
+    end
 end
