@@ -1,5 +1,5 @@
 module Dcmetro
-  VERSION = "0.0.3"
+  VERSION = "0.1.0"
 end
 
 ### Changes in 0.0.2
