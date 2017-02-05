@@ -49,4 +49,63 @@ describe DCMetro::Information do
         end
     end
 
+    describe "#lines red" do
+        # subject { DCMetro::Information.new(:lines => "blue" }
+        it "returns stations on red line" do
+            # puts @dcmetro.inspect
+            expect(@dcmetro).to respond_to(:line).with(1).argument
+            stations = JSON.parse @dcmetro.line "red"
+            # puts @dcmetro.metro_lines
+            expect(@dcmetro.line("red").code).to eq 200
+            expect(stations).to include 'Stations'
+        end
+    end
+
+    describe "#lines orange" do
+        # subject { DCMetro::Information.new(:lines => "blue" }
+        it "returns stations on orange line" do
+            # puts @dcmetro.inspect
+            expect(@dcmetro).to respond_to(:line).with(1).argument
+            stations = JSON.parse @dcmetro.line "orange"
+            # puts @dcmetro.metro_lines
+            expect(@dcmetro.line("orange").code).to eq 200
+            expect(stations).to include 'Stations'
+        end
+    end
+
+    describe "#lines green" do
+        # subject { DCMetro::Information.new(:lines => "blue" }
+        it "returns stations on green line" do
+            # puts @dcmetro.inspect
+            expect(@dcmetro).to respond_to(:line).with(1).argument
+            stations = JSON.parse @dcmetro.line "green"
+            # puts @dcmetro.metro_lines
+            expect(@dcmetro.line("green").code).to eq 200
+            expect(stations).to include 'Stations'
+        end
+    end
+
+    describe "#lines yellow" do
+        # subject { DCMetro::Information.new(:lines => "blue" }
+        it "returns stations on yellow line" do
+            # puts @dcmetro.inspect
+            expect(@dcmetro).to respond_to(:line).with(1).argument
+            stations = JSON.parse @dcmetro.line "yellow"
+            # puts @dcmetro.metro_lines
+            expect(@dcmetro.line("yellow").code).to eq 200
+            expect(stations).to include 'Stations'
+        end
+    end
+
+    describe "#lines silver" do
+        # subject { DCMetro::Information.new(:lines => "blue" }
+        it "returns stations on silver line" do
+            # puts @dcmetro.inspect
+            expect(@dcmetro).to respond_to(:line).with(1).argument
+            stations = JSON.parse @dcmetro.line "silver"
+            # puts @dcmetro.metro_lines
+            expect(@dcmetro.line("silver").code).to eq 200
+            expect(stations).to include 'Stations'
+        end
+    end
 end
