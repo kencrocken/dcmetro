@@ -33,7 +33,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  
+
   DCMetro::Cli::Application::COLOR_OFF="\033[0m"       # Text Reset
 
   # Line Colors
@@ -59,8 +59,8 @@ RSpec.configure do |config|
     result
   end
 
-  config.include(Aruba::Api)
-  Aruba.config.working_directory = "./aruba_test"
+  # config.include(Aruba::Api)
+  # Aruba.config.working_directory = "./aruba_test"
   DCMetro::Information::API_KEY = ENV['DCMETRO_KEY']
 
   config.expect_with :rspec do |expectations|
