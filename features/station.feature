@@ -3,12 +3,6 @@ Feature: check dcmetro station predictions
     When I run `dcmetro station STATION`
     Then train predictions for STATION should be displayed
 
-    After do
-        Timeout.timeout(0.5) do
-            puts "pausing ..."
-        end
-    end
-
     Scenario: check gallery predictions
         When I run `dcmetro station gallery`
         Then the stdout should contain:

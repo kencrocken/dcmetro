@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe DCMetro::Cli do
 
+    before :each do
+        sleep 1
+    end
     describe "#dcmetro" do
         it "should show commands" do
             output = `bundle exec bin/dcmetro`.chomp
