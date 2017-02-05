@@ -4,6 +4,7 @@ describe DCMetro::Information do
 
     before :each do
         @dcmetro = DCMetro::Information.new
+        sleep 1
     end
 
     describe "@dcmetro" do
