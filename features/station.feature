@@ -2,7 +2,13 @@ Feature: check dcmetro station predictions
     In order to station predictions
     When I run `dcmetro station STATION`
     Then train predictions for STATION should be displayed
-    
+
+    After do
+        Timeout.timeout(0.5) do
+            puts "pausing ..."
+        end
+    end
+
     Scenario: check gallery predictions
         When I run `dcmetro station gallery`
         Then the stdout should contain:
@@ -13,11 +19,11 @@ Feature: check dcmetro station predictions
     Scenario: check predictions from partial name
         When I run `dcmetro station gall` interactively
         And I type "0"
-        Then the stdout should contain: 
+        Then the stdout should contain:
         """
         ****Multiple stations found****
         """
-        Then the stdout should contain: 
+        Then the stdout should contain:
         """
         Gallery
         """

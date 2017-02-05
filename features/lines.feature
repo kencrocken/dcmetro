@@ -4,6 +4,12 @@ Feature: check dcmetro lines
     When I run `bundle exec dcmetro lines`
     Then metro lines should be displayed
 
+    After do
+        Timeout.timeout(0.5) do
+            puts "pausing ..."
+        end
+    end
+
     # check line - singular
     Scenario: check lines
         When I run `dcmetro line`
