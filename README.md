@@ -42,15 +42,15 @@ With the gem installed, instantiate a new class in your controller:
 class WelcomeController < ApplicationController
 
   def index
-    x = DCMetro::Information.new
-    @alerts = JSON.parse x.alerts
-    @lines = JSON.parse x.line
-    @stations = JSON.parse x.line "green"
-    @college_park = JSON.parse x.station "college"
-    @gallery_place = JSON.parse x.station "gallery"
+    dc_metro = DCMetro::Information.new
+    @alerts = JSON.parse dc_metro.alerts
+    @lines = JSON.parse dc_metro.line
+    @stations = JSON.parse dc_metro.line "green"
+    @college_park = JSON.parse dc_metro.station "college"
+    @gallery_place = JSON.parse dc_metro.station "gallery"
     #
     # New in 0.0.3 - kind of a work in prorgress
-    @fare_info = JSON.parse x.station "college", "gallery"
+    @fare_info = JSON.parse dc_metro.station "college", "gallery"
   end
 
 end
