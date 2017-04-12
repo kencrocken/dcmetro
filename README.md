@@ -22,7 +22,7 @@ Or install it yourself as:
 
     $ gem install dcmetro
 
-####An ENV variable must be set either in your shell for the CLI or where ever you keep such variables in your Rails apps.
+#### An ENV variable must be set either in your shell for the CLI or where ever you keep such variables in your Rails apps.
 
 The variable needs to be set to `DCMETRO_KEY`
 
@@ -34,7 +34,7 @@ For the CLI, in the `.bash_profile` set the following:
 Don't forget to `source .bash_profile` after making the changes.
 
 ## Usage
-###Rails App
+### Rails App
 
 With the gem installed, instantiate a new class in your controller:
 
@@ -58,7 +58,7 @@ end
 
 For more info, see this [sample rails app](https://fathomless-reef-6180.herokuapp.com/), and [the repo](https://github.com/kencrocken/dcmetro_example) for the sample app.
 
-###CLI
+### CLI
 
 ```
 $ dcmetro
@@ -78,7 +78,7 @@ Commands:
 5. Create a new Pull Request
 
 
-###Development
+### Development
 
 `$ cd ~/path/to/dcmetro`
 `bundle install` to get dependencies.
