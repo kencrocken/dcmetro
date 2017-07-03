@@ -9,11 +9,11 @@ module DCMetro
 
     def initialize
       @metro_incidents = metro_incidents
-      @metro_lines = metro_lines
-      @metro_stations = metro_stations
-      @station_code = ""
-      @metro_time = metro_time
-      @travel_info = travel_info
+      @metro_lines     = metro_lines
+      @metro_stations  = metro_stations
+      @station_code    = ""
+      @metro_time      = metro_time
+      @travel_info     = travel_info
     end
 
     def alerts
@@ -48,10 +48,10 @@ module DCMetro
         else
           color = "SV"
         end
-        
+
         @metro_stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
-        "LineCode" => color,
-        "api_key" => API_KEY,
+        "LineCode"         => color,
+        "api_key"          => API_KEY,
         "subscription-key" => API_KEY
         }
 
@@ -59,7 +59,7 @@ module DCMetro
         # @metro_stations['Stations']
       else
         @metro_lines = RestClient.get "#{BASE_URL}/Rail.svc/json/JLines", :params => {
-        "api_key" => API_KEY,
+        "api_key"          => API_KEY,
         "subscription-key" => API_KEY
         }
 
@@ -92,27 +92,29 @@ module DCMetro
           end
         end
         # Oddly, the api seems to return some stations twice - since some stations have more than
-        # one line.  Though the additional station information is contained in each instance of the 
-        # station. 
+        # one line.  Though the additional station information is contained in each instance of the
+        # station.
         # We limit our array to only unique station names, hopefully limiting the array to a single item
         stations_check.uniq! { |station| station['Name'] }
 
-        # If the array length is greater than 1, we ask the user to be more specific and 
+        # If the array length is greater than 1, we ask the user to be more specific and
         # return the names of the stations
         if stations_check.length > 1
-          puts "****Multiple stations found****"
-          stations_check.each_with_index do |station,i|
-            puts  "#{i} #{station['Name']}"
-          end
-          puts "****Please be more specific, enter the number below ****"
-          specific = STDIN.gets.chomp.to_i
-          station_time stations_check[specific]
+          "****Multiple stations found****"
+
+        #   puts "****Multiple stations found****"
+        #   stations_check.each_with_index do |station,i|
+        #     puts  "#{i} #{station['Name']}"
+        #   end
+        #   puts "****Please be more specific, enter the number below ****"
+        #   specific = STDIN.gets.chomp.to_i
+        #   station_time stations_check[specific]
         else
           # We pass the station the station_time method to grab the predictions
           station_time stations_check[0]
         end
       else
-        stations = [source, destination]
+        stations     = [source, destination]
         station_code = []
         stations.each do |station|
           @metro_stations['Stations'].each do |station_name|
@@ -149,7 +151,7 @@ module DCMetro
       end
     end ### station
 
-    private 
+    private
 
     def get_all_stations
       return RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", :params => {
@@ -160,7 +162,7 @@ module DCMetro
 
     #
     # This makes an api call to grab the train arrival and departure predictions.
-    # If more than one line is present at a station, such is concatenated and 
+    # If more than one line is present at a station, such is concatenated and
     # the call is made on all lines.
 
     def station_time(station)

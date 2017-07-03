@@ -5,9 +5,11 @@ describe DCMetro::Cli do
     before :each do
         sleep 1
     end
+
     describe "#dcmetro" do
         it "should show commands" do
             output = `bundle exec bin/dcmetro`.chomp
+            echo_task = capture(:stdout) { DCMetro::Cli::Application.start([]) }
             expect(output).to include "Commands:"
         end
     end

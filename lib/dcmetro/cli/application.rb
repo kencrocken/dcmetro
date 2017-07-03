@@ -61,22 +61,22 @@ module DCMetro
         # => Displays the alerts, departure and arrival times at the Greenbelt Station
         #
 
-        x = DCMetro::Information.new
+        dc_metro = DCMetro::Information.new
 
         if options[:alerts]
-          y = parse_json x.alerts
-          display_alerts y
+          alerts = parse_json dc_metro.alerts
+          display_alerts alerts
         end
 
         if to.nil?
-          x = parse_json x.station(from)
-          train_time = x['Trains'].empty? ? "Sorry, there is no information for #{from}." : display_trains(x['Trains'])
+          station = parse_json dc_metro.station(from)
+          train_time = station['Trains'].empty? ? "Sorry, there is no information for #{from}." : display_trains(station['Trains'])
           puts train_time if !train_time.kind_of?(Array)
           train_time
         else
-          x = x.station(from,to)
-          y = parse_json x
-          display_travel_info y
+          travel_info = dc_metro.station(from,to)
+          fare_info = parse_json travel_info
+          display_travel_info fare_info
 
         end
       end
@@ -101,7 +101,7 @@ module DCMetro
               RED
           end
         end
-        
+
         def parse_json response
           JSON.parse(response)
         end
@@ -109,10 +109,10 @@ module DCMetro
         def display_alerts alerts
           #
           # Formats the display of the alerts
-          
+
           if alerts['Incidents'].empty?
             puts "*** No alerts reported. ***"
-          else 
+          else
             puts "#{RED}*** ALERT! ALERT! ***#{COLOR_OFF}"
             alerts['Incidents'].each { |incident| puts "#{incident["Description"]}\n\n"}
           end
