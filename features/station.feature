@@ -12,6 +12,7 @@ Feature: check dcmetro station predictions
         """
         And the stderr should not contain anything
 
+    # TO-DO: Refactor tests and code to remove 
     # @announce-stdout
     # @announce-stderr
     # Scenario: check predictions from partial name

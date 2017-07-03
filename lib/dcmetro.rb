@@ -100,7 +100,7 @@ module DCMetro
         # If the array length is greater than 1, we ask the user to be more specific and
         # return the names of the stations
         if stations_check.length > 1
-          ["multi_stations" => "****Multiple stations found****"]
+          "****Multiple stations found****"
 
         #   puts "****Multiple stations found****"
         #   stations_check.each_with_index do |station,i|
