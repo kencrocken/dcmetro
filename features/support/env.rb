@@ -37,3 +37,7 @@ Before ("@check ") do
         end
     end
 end
+
+Before('@slow_process') do
+  Aruba.config.io_wait_timeout = 2
+end

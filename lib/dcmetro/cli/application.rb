@@ -103,7 +103,8 @@ module DCMetro
         end
 
         def parse_json response
-          JSON.parse(response)
+          puts response
+          JSON.parse(response, :quirks_mode => true)
         end
 
         def display_alerts alerts
