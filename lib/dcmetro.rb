@@ -68,11 +68,10 @@ module DCMetro
               else
                 raise "Invalid argument, #{color}"
               end
-      @stations = RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", params: {
+      RestClient.get "#{BASE_URL}/Rail.svc/json/jStations", params: {
           'LineCode'         => colorCode,
           'api_key'          => API_KEY,
           'subscription-key' => API_KEY}
-      @stations
     end
 
     def station(source, destination = nil)

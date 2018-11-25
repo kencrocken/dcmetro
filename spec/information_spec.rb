@@ -38,27 +38,27 @@ describe DCMetro::Information do
         it "returns stations per class attr `line` value" do
             expect(@dcmetro).to respond_to(:stations)
             @dcmetro.line = 'blue'
-            puts @dcmetro.stations.inspect
+            # puts @dcmetro.stations.inspect
             stations = JSON.parse @dcmetro.stations
-            puts stations
+            # puts stations
             expect(stations).to have_key 'Stations'
         end
 
         it "returns error if an invalid line color is used" do
             metro_lines = [ 'blue', 'green', 'orange', 'red', 'silver', 'yellow', 'offbrand']
             metro_lines.each do | line |
-                @dcmetro.line = line
-                stations = JSON.parse @dcmetro.stations
-                puts "*************"
-                puts stations.inspect
-                if line != 'offbrand'
-                    expect(JSON.parse @dcmetro.stations).to_not raise_error
-                else
-                    begin
-                        puts @dcmetro.stations.inspect
-                    rescue Exception => ex
-                        puts ex.inspect
+                begin
+                    if line != 'offbrand'
+                        @dcmetro.line = line
+                        stations = JSON.parse @dcmetro.stations
+                        expect(stations).to_not raise_error
+                        expect(stations).to have_key 'Stations'
+                    else
+                        @dcmetro.line = line
+                        stations = JSON.parse @dcmetro.stations
+                        expect(stations).to raise_error('Invalid argument, offbrand')
                     end
+                rescue Exception => ex
                 end
             end
         end
@@ -68,7 +68,6 @@ describe DCMetro::Information do
                 stations = JSON.parse @dcmetro.stations
                 expect(stations).to raise_error
             rescue Exception => ex
-                puts ex.inspect
             end
         end
     end

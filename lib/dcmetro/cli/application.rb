@@ -2,18 +2,19 @@ require 'thor'
 require 'json'
 require 'rest-client'
 
-#
-# This is the command line interface using Thor
-
 module DCMetro
+  #
+  # Command Line Interface
   module Cli
+    #
+    # Thor App
     class Application < Thor
       desc 'alerts', 'Display DC Metro system wide alerts.'
       long_desc %{
         `dcmetro alerts` will display the current WMATA system wide alerts.
         If there are no current WMATA alerts, a message is displayed that no alerts have been found.
         \>$ dcmetro alerts
-        # *** ALERT! ALERT ***
+        \> *** ALERT! ALERT ***
         ...
       }
       def alerts
@@ -37,16 +38,15 @@ module DCMetro
       def lines
         dcmetro = DCMetro::Information.new
         if options[:alerts]
-          alerts = parse_json dcmetro.alerts
-          display_alerts alerts
+          self.alerts
         end
         metro_lines = parse_json dcmetro.lines
         display_lines metro_lines
       end
 
-      desc 'stations COLOR', 'Displays rail station names for the line COLOR'
+      desc 'stations [COLOR]', 'Displays rail station names for the line COLOR'
       long_desc %{
-        `dcmetro stations COLOR` will display a list of the current statuions on the given line color.
+        `dcmetro stations [COLOR]` will display a list of the current statuions on the given line color.
         $ dcmetro stations green
         # The Metro rail system currently consists of ...
 
@@ -55,7 +55,7 @@ module DCMetro
         \> *** ALERT! ALERT ***
         ...
 
-        `dcmetro line COLOR` has the same behavior.
+        `dcmetro line [COLOR]` has the same behavior.
       }
       def stations(color)
         dcmetro = DCMetro::Information.new(color)
@@ -65,7 +65,7 @@ module DCMetro
 
       map "line" => :stations
 
-      desc 'station STATION_NAME', 'Display metro station train arrival and departure times.'
+      desc 'station [NAME]', 'Display metro station train arrival and departure times.'
       method_option :alerts, aliases: '-a', type: :boolean, description: 'Display Metro wide alerts.'
       def station(from)
         #
@@ -89,7 +89,7 @@ module DCMetro
         train_time
       end
 
-      desc 'travel FROM TO', 'Display travel information between two stations, including fare and duration.'
+      desc 'travel [FROM] [TO]', 'Display travel information between two stations, including fare and duration.'
       method_option :alerts, aliases: '-a', type: :boolean, description: 'Display Metro wide alerts.'
       def travel(from, to)
         dcmetro = DCMetro::Information.new
