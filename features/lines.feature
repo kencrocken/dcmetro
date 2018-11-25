@@ -5,9 +5,9 @@ Feature: check dcmetro lines
     Then metro lines should be displayed
 
     # check line - singular
-    Scenario: check lines
-        When I run `dcmetro line`
-        Then the stdout should contain "Blue\nGreen\nOrange\nRed\nSilver\nYellow"
+    # Scenario: check lines
+    #     When I run `dcmetro line`
+    #     Then the stdout should contain "Blue\nGreen\nOrange\nRed\nSilver\nYellow"
 
     # check lines - plural
     Scenario: check lines
@@ -16,6 +16,10 @@ Feature: check dcmetro lines
 
     Scenario: check blue line stations
         When I run `dcmetro line blue`
+        Then the stdout should contain "Metro Center\nMcPherson Square\nFarragut West\nFoggy Bottom-GWU\nRosslyn\nArlington Cemetery\nPentagon\nPentagon City\nCrystal City\nRonald Reagan Washington National Airport\nBraddock Road\nKing St-Old Town\nFederal Triangle\nSmithsonian\nL'Enfant Plaza\nFederal Center SW\nCapitol South\nEastern Market\nPotomac Ave\nStadium-Armory\nBenning Road\nCapitol Heights\nAddison Road-Seat Pleasant\nMorgan Boulevard\nLargo Town Center\nVan Dorn Street\nFranconia-Springfield\n"
+
+    Scenario: check stations on blue line
+        When I run `dcmetro stations blue`
         Then the stdout should contain "Metro Center\nMcPherson Square\nFarragut West\nFoggy Bottom-GWU\nRosslyn\nArlington Cemetery\nPentagon\nPentagon City\nCrystal City\nRonald Reagan Washington National Airport\nBraddock Road\nKing St-Old Town\nFederal Triangle\nSmithsonian\nL'Enfant Plaza\nFederal Center SW\nCapitol South\nEastern Market\nPotomac Ave\nStadium-Armory\nBenning Road\nCapitol Heights\nAddison Road-Seat Pleasant\nMorgan Boulevard\nLargo Town Center\nVan Dorn Street\nFranconia-Springfield\n"
 
     #Scenario: check green line stations

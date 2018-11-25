@@ -20,7 +20,7 @@ Feature: External calls to WMATA api
         And should contain "Lines"
 
     Scenario: Check Stations on a Line
-        When I send a GET request for "WMATA Lines Red"
+        When I send a GET request for "WMATA Stations Red"
         Then the response should be "200"
         And should return "JSON"
         And should contain "Stations"
@@ -34,7 +34,7 @@ Feature: External calls to WMATA api
         And should contain "Min"
 
     Scenario: Check travel time, distance and fare between two stations
-        When I send a GET request for "WMATA Station Gallery College"
+        When I send a GET request for "WMATA Travel Gallery College"
         Then the response should be "200"
         And should return "JSON"
         And should contain "CompositeMiles"

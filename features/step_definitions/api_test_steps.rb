@@ -3,14 +3,15 @@ When(/^I send a GET request for "([^"]*)"$/) do |path|
     when "WMATA Alerts"
         @last_response = DCMETRO.alerts
     when "WMATA Lines"
-        @last_response = DCMETRO.line
-    when "WMATA Lines Red"
-        @last_response = DCMETRO.line "Red"
+        @last_response = DCMETRO.lines
+    when "WMATA Stations Red"
+        DCMETRO.line = 'red'
+        @last_response = DCMETRO.stations
     when "WMATA Station Gallery"
         @last_response = DCMETRO.station "Gallery"
-    when "WMATA Station Gallery College" 
-        @last_response = DCMETRO.station "Gallery", "College"
-    else 
+    when "WMATA Station Gallery College"
+        @last_response = DCMETRO.travel "Gallery", "College"
+    else
         @last_response = false
     end
 end
