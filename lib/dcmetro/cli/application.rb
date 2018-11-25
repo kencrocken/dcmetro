@@ -77,10 +77,8 @@ module DCMetro
         #
 
         dc_metro = DCMetro::Information.new
-
         if options[:alerts]
-          alerts = parse_json dc_metro.alerts
-          display_alerts alerts
+          self.alerts
         end
 
         station = parse_json dc_metro.station(from)
@@ -94,8 +92,7 @@ module DCMetro
       def travel(from, to)
         dcmetro = DCMetro::Information.new
         if options[:alerts]
-          alerts = parse_json dc_metro.alerts
-          display_alerts alerts
+          self.alerts
         end
         travel_info = dcmetro.station(from, to)
         fare_info = parse_json travel_info
