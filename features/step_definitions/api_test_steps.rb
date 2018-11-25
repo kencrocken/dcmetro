@@ -9,8 +9,8 @@ When(/^I send a GET request for "([^"]*)"$/) do |path|
         @last_response = DCMETRO.stations
     when "WMATA Station Gallery"
         @last_response = DCMETRO.station "Gallery"
-    when "WMATA Station Gallery College"
-        @last_response = DCMETRO.travel "Gallery", "College"
+    when "WMATA Travel Gallery College"
+        @last_response = DCMETRO.station "Gallery", "College"
     else
         @last_response = false
     end
