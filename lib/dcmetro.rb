@@ -15,6 +15,7 @@ module DCMetro
       @line = line
       @stations = stations if @line
       @station_code    = ''
+
       @metro_time      = metro_time
       @travel_info     = travel_info
     end
@@ -88,11 +89,11 @@ module DCMetro
       if destination.nil?
         # Iterates through the response checking if the station name passed by the user
         # is included in the return response
-        @metro_stations['Stations'].each do |station_name|
-          next unless station_name['Name'].downcase.include? source.downcase
+        @metro_stations['Stations'].each do |metro_station|
+          next unless metro_station['Name'].downcase.include? source.downcase
           # if the names of the station matches the user's station, the station
           # is pushed to an array
-          stations_check.push(station_name)
+          stations_check.push(metro_station)
         end
         # Oddly, the api seems to return some stations twice - since some stations have more than
         # one line.  Though the additional station information is contained in each instance of the
@@ -103,20 +104,22 @@ module DCMetro
         # If the array length is greater than 1, we ask the user to be more specific and
         # return the names of the stations
         if stations_check.length > 1
-          '****Multiple stations found****'
-
-        #   puts "****Multiple stations found****"
-        #   stations_check.each_with_index do |station,i|
-        #     puts  "#{i} #{station['Name']}"
-        #   end
-        #   puts "****Please be more specific, enter the number below ****"
-        #   specific = STDIN.gets.chomp.to_i
-        #   station_time stations_check[specific]
+          return {
+            multiple: true,
+            data: stations_check
+          }.to_json
+        
         else
-          # We pass the station the station_time method to grab the predictions
-          station_time stations_check[0]
+          # We pass the station the retrieve_train_time method to grab the predictions
+          retrieve_train_time(stations_check) 
+          # response = {
+          #   multiple: false,
+          #   data: JSON.parse(@metro_time)
+          # }.to_json
+          # response
         end
       else
+        #  Will become travel_info
         stations     = [source, destination]
         station_code = []
         stations.each do |station|
@@ -168,7 +171,10 @@ module DCMetro
     # If more than one line is present at a station, such is concatenated and
     # the call is made on all lines.
 
-    def station_time(station)
+    def retrieve_train_time(stationArray)
+      station = stationArray[0]
+      # puts station
+      # puts station['Code']
       # If a station has multiple stations codes we join the codes together
       @station_code = station['Code']
       unless station['StationTogether1'].empty?
@@ -183,7 +189,6 @@ module DCMetro
         'api_key' => API_KEY,
         'subscription-key' => API_KEY
       }
-      @metro_time
     end
   end ### Information
 end ### Metro

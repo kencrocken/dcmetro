@@ -135,11 +135,12 @@ describe DCMetro::Information do
     describe "#station farragut" do
         it "returns multiple stations" do
             expect(@dcmetro).to respond_to(:station).with(1).argument
-            station = @dcmetro.station "farragut"
+            stationResponse = @dcmetro.station "farragut"
             # puts station
             # print "0"
             # echo_task = capture(:stdout) { DCMetro::Information.new(['station','farragut']) }
-            expect(station).to include 'Multiple stations'
+            station = JSON.parse(stationResponse)
+            expect(station['multiple']).to be true
         end
     end
 end

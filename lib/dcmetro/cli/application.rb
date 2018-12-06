@@ -80,10 +80,9 @@ module DCMetro
         if options[:alerts]
           self.alerts
         end
-
         station = parse_json dc_metro.station(from)
-        train_time = station['Trains'].empty? ? "Sorry, there is no information for #{from}." : display_trains(station['Trains'])
-        puts train_time unless train_time.is_a?(Array)
+
+        train_time = station['multiple'] ? multiple_stations(station['data']) : display_trains(station)
         train_time
       end
 
@@ -102,17 +101,22 @@ module DCMetro
       private
 
       no_commands do
+        #
+        # returns color char for the lines
+        # 
+        # @param [String] line_code two character code from WMATA describing the line.
+        # @return [String] unicode for color to match the font color with the line color
         def get_color(line_code)
           case line_code
-          when 'GR'
+          when 'GR', 'green'
             GREEN
-          when 'BL'
+          when 'BL', 'blue'
             BLUE
-          when 'OR'
+          when 'OR', 'orange'
             ORANGE
-          when 'SV'
+          when 'SV', 'silver'
             SILVER
-          when 'YL'
+          when 'YL', 'yellow'
             YELLOW
           else
             RED
@@ -136,6 +140,7 @@ module DCMetro
         end
 
         def display_lines(metro_lines)
+          #@type[String]
           intro = %{
 The Metro rail system currently consists of #{metro_lines['Lines'].length} rail lines.
 Each line represented by a color.
@@ -149,20 +154,7 @@ The lines are:
         end
 
         def display_stations(stations, lineName)
-          color = case(lineName.downcase)
-          when 'green'
-            GREEN
-          when 'blue'
-            BLUE
-          when 'orange'
-            ORANGE
-          when 'silver'
-            SILVER
-          when 'yellow'
-            YELLOW
-          else
-            RED
-          end
+          color = get_color(lineName.downcase)
           intro = %{
 These are the current stations on the #{color}#{lineName.upcase}#{COLOR_OFF} line:
           }
@@ -174,9 +166,14 @@ For more information about a station, including train departures, please run `dc
           puts outro
         end
 
-        def display_trains(trains)
+        def display_trains(trainData)
           #
           # Formats the display of the train arrival and departures
+          trains = trainData['Trains']
+          if trains.length < 1
+            puts "There is no train information at this time."
+            return
+          end
 
           puts "===== #{trains[0]['LocationName']} ====="
           trains.each do |prediction|
@@ -190,6 +187,17 @@ For more information about a station, including train departures, please run `dc
           puts "Distance: #{information['CompositeMiles']} Miles\n"
           puts "Estimate Travel Time: #{information['RailTime']} Minutes\n"
           puts "\n*** Fare Information ***\nOff Peak Time:  $#{railFare['OffPeakTime']}\nPeak Time:  $#{railFare['PeakTime']}\nSenior/Disabled:  $#{railFare['SeniorDisabled']}"
+        end
+
+        def multiple_stations(stations)
+          puts "****Multiple stations found****"
+          stations.each_with_index do |station,i|
+            puts  "#{i} #{station['Name']}"
+          end
+          puts "****Please be more specific, enter the number below ****"
+          specific = STDIN.gets.chomp.to_i
+          puts stations[specific]["Name"]
+          station(stations[specific]["Name"])
         end
       end
     end
