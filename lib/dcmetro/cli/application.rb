@@ -82,7 +82,7 @@ module DCMetro
         end
         station = parse_json dc_metro.station(from)
 
-        train_time = station['multiple'] ? multiple_stations(station['data']) : display_trains(station)
+        train_time = station['multiple'] ? multiple_stations(station['data']) : display_trains(station, from)
         train_time
       end
 
@@ -166,12 +166,13 @@ For more information about a station, including train departures, please run `dc
           puts outro
         end
 
-        def display_trains(trainData)
+        def display_trains(trainData, from)
+          puts trainData
           #
           # Formats the display of the train arrival and departures
           trains = trainData['Trains']
           if trains.length < 1
-            puts "There is no train information at this time."
+            puts "There is no train information for '#{from}' at this time."
             return
           end
 
