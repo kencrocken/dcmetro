@@ -95,7 +95,15 @@ module DCMetro
         end
         travel_info = dcmetro.station(from, to)
         fare_info = parse_json travel_info
-        display_travel_info fare_info
+        if (fare_info['StationToStationInfos'])
+          display_travel_info fare_info
+        else
+          travel_stations = travel_multiple_stations(fare_info['data'])
+          from = travel_stations[:from]
+          to = travel_stations[:to]
+          info = dcmetro.station(from, to)
+          display_travel_info parse_json(info)
+        end
       end
 
       private
@@ -199,6 +207,21 @@ For more information about a station, including train departures, please run `dc
           specific = STDIN.gets.chomp.to_i
           puts stations[specific]["Name"]
           station(stations[specific]["Name"])
+        end
+
+        def travel_multiple_stations(stations)
+          puts '****Multiple stations found****'
+          stations.each_with_index do |station, i|
+            puts "#{i} #{station['Name']}"
+          end
+          puts '****Please be more specific****'
+          puts 'Enter the number of your starting station.'
+          start = STDIN.gets.chomp.to_i
+          puts 'Enter the number of your destination station.'
+          destination = STDIN.gets.chomp.to_i
+          from = stations[start]
+          to = stations[destination] 
+          return { from: from['Name'], to: to['Name'] }
         end
       end
     end

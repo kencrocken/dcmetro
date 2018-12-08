@@ -131,21 +131,7 @@ module DCMetro
         end
         station_code.uniq! { |station| station['Name'] }
         if station_code.length > 2
-          puts '****Multiple stations found****'
-          station_code.each_with_index do |station, i|
-            puts "#{i} #{station['Name']}"
-          end
-          puts '****Please be more specific****'
-          puts 'Enter the number of your starting station.'
-          start = STDIN.gets.chomp.to_i
-          puts 'Enter the number of your destination station.'
-          destination = STDIN.gets.chomp.to_i
-          @travel_info = RestClient.get "#{BASE_URL}/Rail.svc/json/jSrcStationToDstStationInfo", params: {
-            'FromStationCode' => station_code[start]['Code'],
-            'ToStationCode' => station_code[destination]['Code'],
-            'api_key' => API_KEY,
-            'subscription-key' => API_KEY
-          }
+          @travel_info = { error: true, data: station_code}.to_json
         else
           @travel_info = RestClient.get "#{BASE_URL}/Rail.svc/json/jSrcStationToDstStationInfo", params: {
             'FromStationCode' => station_code[0]['Code'],
